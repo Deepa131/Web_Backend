@@ -10,13 +10,11 @@ const signupUser = async (req, res) => {
     }
 
     try {
-        // Check if user already exists
         const userExists = await User.findOne({ where: { email } });
         if (userExists) {
             return res.status(400).json({ error: "User already exists" });
         }
 
-        // Create the user
         const newUser = await User.create({ username, email, password });
         res.status(201).json({ message: "Signup successful!" });
 
@@ -36,19 +34,16 @@ const loginUser = async (req, res) => {
     }
 
     try {
-        // Find user by email
         const user = await User.findOne({ where: { email } });
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
 
-        // Compare hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ error: "Invalid password" });
         }
 
-        // Generate JWT token
         const token = jwt.sign(
             { id: user.id, username: user.username, email: user.email },
             process.env.JWT_SECRET || 'secret',
@@ -66,11 +61,10 @@ const loginUser = async (req, res) => {
     }
 };
 
-// Get User by ID
 const getUserById = async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id, {
-            attributes: ['id', 'username', 'email'] // Return only necessary fields
+            attributes: ['id', 'username', 'email'] 
         });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
@@ -82,7 +76,6 @@ const getUserById = async (req, res) => {
     }
 };
 
-// Update User (Prevents direct password update without hashing)
 const updateUser = async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
@@ -90,7 +83,6 @@ const updateUser = async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Prevent direct password update
         if (req.body.password) {
             req.body.password = await bcrypt.hash(req.body.password, 10);
         }
@@ -103,7 +95,6 @@ const updateUser = async (req, res) => {
     }
 };
 
-// Delete User
 const deleteUser = async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
