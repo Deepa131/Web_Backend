@@ -1,11 +1,9 @@
 const DiaryEntry = require('../model/DiaryEntry');
 
-// Create a new diary entry
 const createDiaryEntry = async (req, res) => {
   try {
     const { selectedDate, dayQuality, thoughts, highlight } = req.body;
 
-    // Validate required fields
     if (!selectedDate || !dayQuality || !thoughts) {
       return res.status(400).json({ error: 'Please provide all required fields' });
     }
@@ -23,7 +21,6 @@ const createDiaryEntry = async (req, res) => {
   }
 };
 
-// Get all diary entries
 const getAllDiaryEntries = async (req, res) => {
   try {
     const entries = await DiaryEntry.findAll();
@@ -33,7 +30,6 @@ const getAllDiaryEntries = async (req, res) => {
   }
 };
 
-// Get a single diary entry by ID
 const getDiaryEntryById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -49,10 +45,9 @@ const getDiaryEntryById = async (req, res) => {
   }
 };
 
-// Update a diary entry
 const updateDiaryEntry = async (req, res) => {
   try {
-    const { id } = req.params; // Ensure the 'id' is being passed correctly from the URL
+    const { id } = req.params;
     const { selectedDate, dayQuality, thoughts, highlight } = req.body;
     
     if (!id) {
@@ -79,7 +74,6 @@ const updateDiaryEntry = async (req, res) => {
   }
 };
 
-// Delete a diary entry
 const deleteDiaryEntry = async (req, res) => {
   try {
     const { id } = req.params;
