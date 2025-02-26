@@ -101,7 +101,7 @@ const removeFavorite = async (req, res) => {
 const toggleFavorite = async (req, res) => {
     try {
         const userId = req.user.id; // Get userId from token
-        const { diaryId } = req.body;
+        const diaryId = req.params.id; 
 
         if (!diaryId) {
             return res.status(400).json({ error: 'Diary ID is required' });
@@ -121,6 +121,7 @@ const toggleFavorite = async (req, res) => {
         res.status(500).json({ error: 'Something went wrong while toggling the favorite' });
     }
 };
+
 
 module.exports = {
     addFavorite,
