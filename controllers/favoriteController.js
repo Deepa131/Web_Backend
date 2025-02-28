@@ -1,5 +1,5 @@
 const Favorite = require('../model/FavoriteDay');
-const DiaryEntry = require('../model/DiaryEntry'); // Import DiaryEntry for association
+const DiaryEntry = require('../model/DiaryEntry'); 
 
 // Add a new favorite entry
 const addFavorite = async (req, res) => {
@@ -22,11 +22,11 @@ const addFavorite = async (req, res) => {
 // Get all favorite entries for the logged-in user
 const getFavorites = async (req, res) => {
     try {
-        const userId = req.user.id; // Get the logged-in user's ID
+        const userId = req.user.id; 
 
         const favorites = await Favorite.findAll({
             where: { userId },
-            include: [{ model: DiaryEntry }] // Include diary entry details
+            include: [{ model: DiaryEntry }] 
         });
 
         res.status(200).json(favorites);
@@ -100,7 +100,7 @@ const removeFavorite = async (req, res) => {
 // Toggle favorite entry (Add/Remove)
 const toggleFavorite = async (req, res) => {
     try {
-        const userId = req.user.id; // Get userId from token
+        const userId = req.user.id; 
         const diaryId = req.params.id; 
 
         if (!diaryId) {
