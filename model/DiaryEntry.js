@@ -24,21 +24,10 @@ const DiaryEntry = sequelize.define('DiaryEntry', {
         type: DataTypes.STRING(255),
         allowNull: true,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
 });
-DiaryEntry.associate = function(models) {
-    DiaryEntry.belongsTo(models.FavoriteDay,{
-        foreignKey:'diaryId',
-        as:'favouriteDays'
-    });
-};
+
+// Defining relationships
+DiaryEntry.belongsTo(User, { foreignKey: 'UserUserId' });
+User.hasMany(DiaryEntry, { foreignKey: 'UserUserId' });
 
 module.exports = DiaryEntry;
