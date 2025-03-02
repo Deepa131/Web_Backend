@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const sequelize = require('./database/db');
-const userRoute = require('./routes/userRoute');
-const diaryRoute = require('./routes/diaryRoutes');
-const User = require('./model/User');
+const sequelize = require('./database/db.js');
+const userRoute = require('./routes/userRoute.js');
+const diaryRoute = require('./routes/diaryRoutes.js');
+const User = require('./model/User.js');
 const favoriteRoute = require('./routes/favoriteRoutes');
 
 dotenv.config();

@@ -17,4 +17,11 @@ const FavoriteDay = sequelize.define('FavoriteDay', {
     }
 });
 
+FavoriteDay.associate = function(models) {
+    FavoriteDay.belongsTo(models.DiaryEntry,{
+        foreignKey: 'diaryId', 
+        as: 'diaryEntries'
+    });
+};
+
 module.exports = FavoriteDay;
