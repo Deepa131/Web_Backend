@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../index.js"); // Ensure this points to your Express app
+const app = require("../index.js");
 
 let authToken;
 let userId;
@@ -9,7 +9,6 @@ const uniqueEmail = `test${Date.now()}@example.com`;
 
 describe("Favorite Routes", () => {
   beforeAll(async () => {
-    // Register a new user
     const signupRes = await request(app)
       .post("/users/signup")
       .send({
@@ -23,7 +22,6 @@ describe("Favorite Routes", () => {
     expect(signupRes.status).toBe(201);
     userId = signupRes.body.user.id;
 
-    // Log in the user
     const loginRes = await request(app)
       .post("/users/login")
       .send({
@@ -34,7 +32,6 @@ describe("Favorite Routes", () => {
     expect(loginRes.status).toBe(200);
     authToken = loginRes.body.token;
 
-    // Create a diary entry to favorite
     const diaryRes = await request(app)
       .post("/diary/create")
       .set("Authorization", `Bearer ${authToken}`)
@@ -128,7 +125,6 @@ describe("Favorite Routes", () => {
   });
 
   afterAll(async () => {
-    // Cleanup: Delete the user and diary entries
     await request(app)
       .delete("/users/profile")
       .set("Authorization", `Bearer ${authToken}`);

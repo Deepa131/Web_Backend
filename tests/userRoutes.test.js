@@ -1,9 +1,9 @@
 const request = require("supertest");
-const app = require("../index.js"); // Ensure this correctly points to your Express app
+const app = require("../index.js");
 
 let authToken;
 let userId;
-const uniqueEmail = `test${Date.now()}@example.com`; // Generate a unique email for testing
+const uniqueEmail = `test${Date.now()}@example.com`; 
 
 describe("User Authentication & Profile Routes", () => {
   it("should register a new user", async () => {

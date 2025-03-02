@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../index.js"); // Ensure this correctly points to your Express app
+const app = require("../index.js"); 
 
 let authToken;
 let userId;
@@ -8,7 +8,6 @@ const uniqueEmail = `test${Date.now()}@example.com`;
 
 describe("Diary Entry Routes", () => {
   beforeAll(async () => {
-    // Register a new user
     const signupRes = await request(app)
       .post("/users/signup")
       .send({
@@ -22,7 +21,6 @@ describe("Diary Entry Routes", () => {
     expect(signupRes.status).toBe(201);
     userId = signupRes.body.user.id;
 
-    // Log in the user
     const loginRes = await request(app)
       .post("/users/login")
       .send({
@@ -100,7 +98,6 @@ describe("Diary Entry Routes", () => {
   });
 
   afterAll(async () => {
-    // Clean up: Delete the user
     await request(app)
       .delete("/users/profile")
       .set("Authorization", `Bearer ${authToken}`);
