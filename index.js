@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const sequelize = require('./database/db.js');
-const userRoute = require('./routes/userRoute.js');
-const diaryRoute = require('./routes/diaryRoutes.js');
-const User = require('./model/User.js');
+const sequelize = require('./database/db');
+const userRoute = require('./routes/userRoute');
+const diaryRoute = require('./routes/diaryRoutes');
+const User = require('./model/User');
 const favoriteRoute = require('./routes/favoriteRoutes');
 
 dotenv.config();
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 // Sync the database
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
     console.log('Database sync successful');
 }).catch((err) => {
     console.error('Error syncing database:', err);
